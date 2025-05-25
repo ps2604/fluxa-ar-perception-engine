@@ -1,50 +1,40 @@
-# FSE Native FLUXA FF (Flow Field)
+# FSE Native FLUXA — Flow Field Vision Engine
 **Author: Pirassena Sabaratnam**
 
 ## Overview
-**FSE Native FLUXA FF** is a multi-task perception engine designed for real-time Augmented Reality (AR) applications. Built on the **Field Signal Engine (FSE)** architecture, it represents a shift from discrete tensor processing to **continuous neural field dynamics**. The model is responsible for extracting high-fidelity scene data—including segmentation, keypoints, surface normals, and environment lighting—providing a unified spatial context for AR synthesis.
+A multi-task perception engine for real-time AR, built on a custom **flow-field** architecture. This replaces standard CNN feature extraction with continuous field dynamics — activations evolve as flow fields rather than being computed as static feature maps.
 
-## Core Philosophy
-The core objective is to achieve **spatio-temporal coherence** in multi-task vision by leveraging physics-informed neural technology. By treating activations as continuous Flow Fields rather than isolated features, the architecture ensures that complex scene properties evolve in a fluid, synchronized manner. This approach prioritizes the stability and physical alignment required for seamless real-time augmentation.
+This is the native implementation of the Field Signal Engine (FSE) concept, built from scratch without TensorFlow or PyTorch CNN layers.
 
-## Architecture & Factual Functionality
+## Architecture
 
-### 1. Vectorized Flow Field Engine
-The model utilizes a custom `FSEField` structure that integrates data with dynamic field properties (e.g., evolution rates). Operations are executed via a vectorized `im2col` GEMM engine optimized for low-latency inference on NVIDIA hardware.
+### Flow Field Engine
+Custom vectorized compute engine using `im2col` GEMM operations, optimized for low-latency inference on NVIDIA hardware via CuPy kernels. All operations work on continuous field representations with associated evolution rates.
 
-### 2. Multi-Task Perception Heads (FLIT)
-The **Field Layer Integration (FLIT)** heads are responsible for translating internal continuous fields into task-specific outputs:
-- **Semantic Segmentation**: Real-time mask generation for subjects.
-- **Keypoint Detection**: Identifying 17 skeletal joints for pose tracking.
-- **Surface Normal Estimation**: Extracting 3D geometry using physics-grounded gradient analysis.
-- **Environment Lighting**: Inferring scene illumination (9-channel representation) from deep bottleneck fields.
+### Multi-Task Perception Heads
+Four task heads decode the internal flow fields into perception outputs:
+- **Semantic Segmentation**: Real-time subject masking
+- **Keypoint Detection**: 17 skeletal joint positions
+- **Surface Normal Estimation**: Per-pixel 3D orientation using physics-grounded gradient analysis
+- **Environment Lighting**: 9-channel scene illumination estimation
 
-### 3. SYNTHA Orchestrator
-The **SYNTHA** module acts as the system's global context manager. It generates context signals that synchronize the various perception heads, ensuring that the inferred geometry, lighting, and masks remain mutually consistent across time steps.
+### Global Context Module
+Generates synchronization signals across the four task heads, ensuring that geometry, lighting, and mask predictions remain mutually consistent. Operates on the shared flow field representation.
 
-## Future Roadmap: PRISM Integration
-FLUXA serves as the primary perception layer for a broader AR pipeline involving **FSENativePRISMFF**. In this setup:
-1. **FLUXA** extracts the physical context (segmentation, keypoints, normals, lighting).
-2. **PRISM** receives these refined Flow Fields to understand the subject's 3D and environmental constraints.
-3. **Synthesis**: PRISM uses this context—guided by an image or prompt—to execute real-time visual augmentations or subject transformations.
+## Evaluation
+- **Dataset**: COCO2017 (human subjects)
+- **Physics-grounded metrics**: Spatial-gradient coherence, unit-length normal validation
+- `fsetest3.png`: Sample multi-modal output (keypoints, segmentation, normals, lighting)
 
-## Performance & Optimization
-- **NVIDIA Hardware Optimization**: Custom CuPy-based kernels and fused operations.
-- **Memory Management**: Unified memory pooling to eliminate fragmentation during real-time inference.
-- **Physics-Grounded Metrics**: Evaluation includes spatial-gradient coherence and unit-length normal validation to ensure physical realism.
-
-## Evaluation & Test Outputs
-The model was trained on the **COCO2017** dataset for high-fidelity human subject perception and validated through testing on real-world subjects. 
-- `fsetest3.png`: Demonstrates the integrated multi-modal outputs (Keypoints, Segmentation, Normals, and Lighting) on a human subject.
-
-## Setup & Usage
-1. Install requirements: `pip install -r requirements.txt`
-2. Install the package in editable mode: `pip install -e .`
-3. Configure `job_config.yaml` for your environment (GCP Vertex AI support included).
-4. Run training via the console command: `fluxa-train --enable_multi_gpu`
+## Setup
+```bash
+pip install -r requirements.txt
+pip install -e .
+fluxa-train --enable_multi_gpu
+```
 
 ## License
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+Apache License 2.0 — see [LICENSE](LICENSE).
 
 ---
-*Developed in 2025 as part of the Auralith Inc. Research.*
+*Developed May 2025 — Auralith Inc.*
