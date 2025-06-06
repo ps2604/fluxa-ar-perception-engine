@@ -1,0 +1,28 @@
+# FlowField FSE Native Training Requirements
+# Dependencies for continuous field computation
+
+# PyTorch for torchrun launcher (and potential future use)
+# For CUDA 11.8, a recent torch version should work.
+torch>=2.1.0,<2.3.0 --index-url https://download.pytorch.org/whl/cu118
+torchvision>=0.16.0,<0.18.0 --index-url https://download.pytorch.org/whl/cu118
+# torchaudio>=2.0.0,<2.3.0 --index-url https://download.pytorch.org/whl/cu118 # Optional
+
+# Core numerical and GPU libraries
+cupy>=12.0.0,<13.0.0
+numpy>=1.24.0,<1.27.0
+
+# Computer vision (for GCS data loader)
+opencv-python>=4.8.0,<5.0.0
+
+# Google Cloud Platform (for GCS data loader and checkpointing)
+google-cloud-storage>=2.10.0,<3.0.0
+
+h5py>=3.8.0,<4.0.0
+# Logging is part of Python standard library
+# argparse is part of Python standard library
+# enum is part of Python standard library
+# json is part of Python standard library
+# io is part of Python standard library
+# random is part of Python standard library
+# time is part of Python standard library
+# os is part of Python standard library
