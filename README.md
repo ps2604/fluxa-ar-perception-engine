@@ -34,7 +34,7 @@ FLUXA serves as the primary perception layer for a broader AR pipeline involving
 - **Physics-Grounded Metrics**: Evaluation includes spatial-gradient coherence and unit-length normal validation to ensure physical realism.
 
 ## Evaluation & Test Outputs
-The model has been validated through testing on human subjects, emphasizing real-world multi-modal consistency.
+The model was trained on the **COCO2017** dataset for high-fidelity human subject perception and validated through testing on real-world subjects. 
 - `fsetest3.png`: Demonstrates the integrated multi-modal outputs (Keypoints, Segmentation, Normals, and Lighting) on a human subject.
 
 ## Setup & Usage
