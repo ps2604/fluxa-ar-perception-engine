@@ -23,7 +23,7 @@ from flowfield_async_data_loader import OptimizedFlowFieldDataLoader
 from flowfield_fluxa_model import ProductionFLUXA
 
 # ✅ RESTORED: Import comprehensive FSE metrics
-from metrics_fse import (
+from FSENativeFLUXAFF.fluxa.metrics_fse import (
     FSEMetricsComputer, compute_fse_metrics,
     kp_mae, kp_coherence, seg_accuracy, seg_miou,
     sn_mae, sn_physics_accuracy, sn_coherence, env_mae

@@ -37,6 +37,12 @@ FLUXA serves as the primary perception layer for a broader AR pipeline involving
 The model has been validated through testing on human subjects, emphasizing real-world multi-modal consistency.
 - `fsetest3.png`: Demonstrates the integrated multi-modal outputs (Keypoints, Segmentation, Normals, and Lighting) on a human subject.
 
+## Setup & Usage
+1. Install requirements: `pip install -r requirements.txt`
+2. Install the package in editable mode: `pip install -e .`
+3. Configure `job_config.yaml` for your environment (GCP Vertex AI support included).
+4. Run training via the console command: `fluxa-train --enable_multi_gpu`
+
 ## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
 
